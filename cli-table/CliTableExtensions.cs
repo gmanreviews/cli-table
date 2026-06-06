@@ -4,10 +4,9 @@ namespace cli_table;
 
 public static class CliTableExtensions
 {
-    public static IServiceCollection AddPrintServices(this IServiceCollection services)
+    public static void AddPrintServices(this IServiceCollection services)
     {
         services.AddSingleton<IWindowSpecifications, ConsoleWidthSpecifications>();
         services.AddSingleton<TablePrint>();
-        return services;
     }
 }
