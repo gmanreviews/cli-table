@@ -4,15 +4,18 @@ namespace cli_table;
 
 public static class CliTableExtensions
 {
-    public static void AddPrintServices(this IServiceCollection services) => services.AddPrintServices(null);
-    
-    public static void AddPrintServices(this IServiceCollection services, Action<TablePrint>? configureTablePrint)
+    extension(IServiceCollection services)
     {
-        services.AddSingleton<IWindowSpecifications, ConsoleWidthSpecifications>();
-        services.AddSingleton<TablePrint>(sp =>
+        public void AddPrintServices() => services.AddPrintServices(null);
+
+        public void AddPrintServices(Action<TablePrint>? configureTablePrint)
         {
-            var windowSpec = sp.GetRequiredService<IWindowSpecifications>();
-            return new TablePrint(windowSpec, SizingStrategy.CompactHeaderLength);
-        });
+            services.AddSingleton<IWindowSpecifications, ConsoleWidthSpecifications>();
+            services.AddSingleton<TablePrint>(sp =>
+            {
+                var windowSpec = sp.GetRequiredService<IWindowSpecifications>();
+                return new TablePrint(windowSpec, SizingStrategy.CompactHeaderLength);
+            });
+        }
     }
 }
