@@ -3,6 +3,5 @@
 public enum SizingStrategy
 {
     Default,
-    Left,
-    Right
+    CompactHeaderLength
 }

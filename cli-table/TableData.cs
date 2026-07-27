@@ -29,8 +29,6 @@ public record TableData<T> where T: class
     
     private string GetDataString(int index, int headerIndex, int width)
     {
-        
-        
         var data = GetData(index);
         var headerName = Headers[headerIndex];
         var type = typeof(T);
@@ -42,6 +40,12 @@ public record TableData<T> where T: class
 
     private static string PrintVal(string val, int width)
     {
+        if (width < val.Length && width > 2)
+        {
+            var wLess2 = width - 2;
+            return $"{val[..wLess2]}..";
+        }
+        
         if (width < val.Length)
         {
             return val[..width];
